@@ -106,6 +106,10 @@ public class StudentGradeProcessor {
             readCourseFile("Text Files/CourseFile.txt");
             writeOutputFile("Text Files/FinalGrades.txt");
             System.out.println("Processing complete. Output written to Text Files/FinalGrades.txt");
+
+            // Launch the Swing-based viewer to display the table
+            FinalGradesViewer.main(new String[0]);
+            
         } catch (IOException e) {
             System.err.println("File error: " + e.getMessage());
         } catch (Exception e) {

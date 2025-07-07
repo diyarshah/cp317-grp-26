@@ -109,7 +109,7 @@ public class StudentGradeProcessor {
 
             // Launch the Swing-based viewer to display the table
             FinalGradesViewer.main(new String[0]);
-            
+
         } catch (IOException e) {
             System.err.println("File error: " + e.getMessage());
         } catch (Exception e) {
@@ -221,3 +221,5 @@ public class StudentGradeProcessor {
         }
     }
 }
+
+

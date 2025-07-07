@@ -135,7 +135,11 @@ public class StudentGradeProcessor {
     public static void writeOutputFile(String filename) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
             writer.println("Student ID, Student Name, Course Code, Final Grade");
-            for (Student student : students.values()) {
+    
+            // Sort students by ID (TreeMap automatically sorts by key)
+            Map<String, Student> sortedStudents = new TreeMap<>(students);
+    
+            for (Student student : sortedStudents.values()) {
                 for (Course course : student.getCourses()) {
                     writer.printf("%s, %s, %s, %.1f%n",
                         student.getId(),

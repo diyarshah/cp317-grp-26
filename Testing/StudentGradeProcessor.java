@@ -137,7 +137,7 @@ public class StudentGradeProcessor {
             writer.println("Student ID,Student Name,Course Code,Final Grade");
             for (Student student : students.values()) {
                 for (Course course : student.getCourses()) {
-                    writer.printf("%s,%s,%s,%.1f%n",
+                    writer.printf("%s, %s, %s, %.1f%n",
                         student.getId(),
                         student.getName(),
                         course.getCourseCode(),

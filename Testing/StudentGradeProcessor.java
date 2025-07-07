@@ -1,6 +1,9 @@
 import java.io.*;
 import java.util.*;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 // Abstract base class using Abstraction
 abstract class Person {
     private String id;
@@ -81,10 +84,12 @@ public class StudentGradeProcessor {
 
     public static void main(String[] args) {
         try {
-            readNameFile("Text Files/NameFile.txt");
-            readCourseFile("Text Files/CourseFile.txt");
-            writeOutputFile("Text Files/FinalGrades.txt");
-            System.out.println("Processing complete. Output written to Text Files/FinalGrades.txt");
+        readNameFile("Text Files/NameFile.txt");
+        readCourseFile("Text Files/CourseFile.txt");
+        writeOutputFile("Text Files/FinalGrades.txt");
+        // ← NEW LINE:
+        sortFinalGradesFile("Text Files/FinalGrades.txt");
+        System.out.println("Processing complete. Output written to Text Files/FinalGrades.txt");
         } catch (IOException e) {
             System.err.println("File error: " + e.getMessage());
         } catch (Exception e) {
@@ -137,12 +142,34 @@ public class StudentGradeProcessor {
             writer.println("Student ID,Student Name,Course Code,Final Grade");
             for (Student student : students.values()) {
                 for (Course course : student.getCourses()) {
-                    writer.printf("%s,%s,%s,%.1f%n",
+                    writer.printf("%s, %s, %s, %.1f %n",
                         student.getId(),
                         student.getName(),
                         course.getCourseCode(),
                         course.computeFinalGrade());
                 }
+            }
+        }
+    }
+
+    /**
+     * Reads the given CSV file, sorts all data rows by Student ID (first column),
+     * and rewrites the file in sorted order (keeping the header on top).
+     */
+    public static void sortFinalGradesFile(String filename) throws IOException {
+        // Read all lines
+        List<String> lines = Files.readAllLines(Paths.get(filename));
+        if (lines.size() <= 1) return;  // nothing to sort
+
+        String header = lines.remove(0);  // keep header aside
+        // Sort by the first comma-separated field (the Student ID)
+        lines.sort(Comparator.comparing(line -> line.split(",")[0].trim()));
+
+        // Rewrite file: header + sorted data
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
+            writer.println(header);
+            for (String line : lines) {
+                writer.println(line);
             }
         }
     }

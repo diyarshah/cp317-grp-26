@@ -1,8 +1,7 @@
 import java.io.*;
-import java.util.*;
-
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.*;
 
 // Abstract base class using Abstraction
 abstract class Person {
@@ -189,7 +188,7 @@ public class StudentGradeProcessor {
             for (Student student : sortedStudents.values()) {
                 // For each course, write a formatted line with final grade
                 for (Course course : student.getCourses()) {
-                    writer.printf("%s,%s,%s,%.1f%n",
+                    writer.printf("%s, %s, %s, %.1f%n",
                         student.getId(),
                         student.getName(),
                         course.getCourseCode(),
